@@ -1,118 +1,2791 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banglish - Learn English & Bengali</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banglish - Learn English & Bengali with Confidence</title>
+  <meta name="description" content="Banglish is the modern, gamified language learning app for mastering English and Bengali. Vocabulary builder, grammar practice, native pronunciation, and interactive quizzes.">
+  <meta property="og:title" content="Banglish - Learn English & Bengali with Confidence">
+  <meta property="og:description" content="Master daily conversations, vocabulary, grammar, and pronunciation between English and Bengali.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/public/assets/aistudio/Designer__4__92e631fd.png">
+  <meta name="twitter:card" content="summary_large_image">
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI, sans-serif;
-}
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & RESET
+       ========================================================================== */
+    :root {
+      --bg-midnight: #070a14;
+      --bg-dark-1: #0d1224;
+      --bg-dark-2: #141b36;
+      --bg-card: rgba(18, 25, 52, 0.75);
+      --bg-card-hover: rgba(28, 38, 77, 0.85);
+      --border-subtle: rgba(139, 92, 246, 0.18);
+      --border-glow: rgba(168, 85, 247, 0.45);
+      
+      --purple-primary: #8b5cf6;
+      --purple-light: #a78bfa;
+      --purple-vibrant: #c084fc;
+      --blue-accent: #3b82f6;
+      --indigo-vibrant: #6366f1;
+      --gold-accent: #f5c869;
+      --gold-hover: #ffd782;
+      --emerald-accent: #10b981;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+      --rose-accent: #f43f5e;
+      
+      --text-main: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Plus Jakarta Sans", "Inter", "Noto Sans Bengali", sans-serif;
+      --transition-smooth: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--border-subtle);
+      --shadow-glow: 0 0 40px -10px rgba(139, 92, 246, 0.35);
+    }
 
-body{
-background:#0f172a;
-color:white;
-line-height:1.6;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-.container{
-width:90%;
-max-width:1200px;
-margin:auto;
-}
+    html {
+      scroll-behavior: smooth;
+      color-scheme: dark;
+    }
 
-.hero{
-padding:100px 20px;
-text-align:center;
-background:linear-gradient(135deg,#2563eb,#7c3aed);
-}
+    body {
+      font-family: var(--font-stack);
+      background-color: var(--bg-midnight);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
 
-.hero h1{
-font-size:60px;
-margin-bottom:15px;
-}
+    /* Ambient Background Glow Orbs */
+    .ambient-glow {
+      position: fixed;
+      pointer-events: none;
+      z-index: 0;
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.38;
+      transform: translate3d(0, 0, 0);
+    }
+    .ambient-1 {
+      top: -100px;
+      right: -50px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, #7c3aed 0%, rgba(99, 102, 241, 0.4) 60%, transparent 80%);
+    }
+    .ambient-2 {
+      top: 35%;
+      left: -150px;
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, #3b82f6 0%, rgba(139, 92, 246, 0.35) 60%, transparent 80%);
+    }
+    .ambient-3 {
+      bottom: 10%;
+      right: -100px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, #8b5cf6 0%, rgba(16, 185, 129, 0.25) 50%, transparent 80%);
+    }
 
-.hero p{
-font-size:20px;
-max-width:700px;
-margin:0 auto;
-}
+    .content-wrapper {
+      position: relative;
+      z-index: 1;
+    }
 
-.download-btn{
-display:inline-block;
-margin-top:30px;
-padding:15px 35px;
-background:white;
-color:#2563eb;
-text-decoration:none;
-font-weight:bold;
-border-radius:50px;
-}
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-.section{
-padding:80px 20px;
-}
+    /* Typography Utilities */
+    h1, h2, h3, h4, h5 {
+      color: #ffffff;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
 
-.section-title{
-text-align:center;
-font-size:40px;
-margin-bottom:50px;
-}
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 10%, #d8b4fe 50%, #93c5fd 90%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
 
-.features{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-}
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #ffd782 0%, #f5c869 50%, #eab308 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
 
-.card{
-background:#1e293b;
-padding:25px;
-border-radius:16px;
-box-shadow:0 10px 20px rgba(0,0,0,.2);
-}
+    .bengali-script {
+      font-family: "Noto Sans Bengali", var(--font-stack);
+    }
 
-.card h3{
-margin-bottom:10px;
-color:#60a5fa;
-}
+    /* ==========================================================================
+       2. HEADER & NAVIGATION
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(7, 10, 20, 0.82);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.15);
+      transition: var(--transition-smooth);
+    }
 
-.about{
-text-align:center;
-max-width:800px;
-margin:auto;
-font-size:18px;
-}
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 76px;
+      gap: 32px;
+    }
 
-.footer{
-padding:40px;
-text-align:center;
-background:#020617;
-}
+    /* Brand Logo */
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: #ffffff;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
 
-.contact{
-text-align:center;
-font-size:18px;
-}
+    .brand-emblem {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+      border: 1px solid rgba(245, 200, 105, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
 
-@media(max-width:768px){
-.hero h1{
-font-size:42px;
-}
-}
-</style>
+    .brand-emblem svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+    }
+
+    .brand-tagline {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--gold-accent);
+      text-transform: uppercase;
+    }
+
+    /* Desktop Navigation Links */
+    .desktop-nav {
+      display: none;
+      align-items: center;
+      gap: 28px;
+    }
+
+    @media (min-width: 900px) {
+      .desktop-nav {
+        display: flex;
+      }
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      white-space: nowrap;
+      position: relative;
+      padding: 6px 0;
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--purple-primary), var(--blue-accent));
+      transition: width 0.2s ease;
+      border-radius: 2px;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Header Actions */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .btn-play-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #1e1b4b, #2e1065);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-play-header:hover {
+      background: linear-gradient(135deg, #2e1065, #4c1d95);
+      border-color: var(--purple-light);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+    }
+
+    .mobile-menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    @media (min-width: 900px) {
+      .mobile-menu-toggle {
+        display: none;
+      }
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      display: none;
+      flex-direction: column;
+      background: rgba(13, 18, 36, 0.98);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 20px 24px;
+      gap: 16px;
+    }
+
+    .mobile-drawer.active {
+      display: flex;
+    }
+
+    .mobile-drawer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* ==========================================================================
+       3. HERO SECTION
+       ========================================================================== */
+    .hero-section {
+      padding: 60px 0 90px;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 56px;
+      }
+    }
+
+    /* Hero Left */
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      align-self: flex-start;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(139, 92, 246, 0.12);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--purple-light);
+    }
+
+    .hero-title {
+      font-size: clamp(2.3rem, 5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      text-wrap: balance;
+    }
+
+    .hero-bengali-kicker {
+      display: block;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      margin-top: 8px;
+      color: var(--gold-accent);
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 600px;
+    }
+
+    /* 3 Value Pillars from Brand */
+    .hero-pillars {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .pillar-card {
+      background: rgba(20, 27, 56, 0.6);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 14px;
+      padding: 16px 12px;
+      text-align: center;
+      transition: var(--transition-smooth);
+    }
+
+    .pillar-card:hover {
+      background: rgba(28, 38, 77, 0.85);
+      border-color: var(--gold-accent);
+      transform: translateY(-2px);
+    }
+
+    .pillar-icon-box {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(245, 200, 105, 0.12);
+      border: 1px solid rgba(245, 200, 105, 0.3);
+      color: var(--gold-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+    }
+
+    .pillar-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    .pillar-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Hero CTA Row */
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-top: 12px;
+    }
+
+    /* Google Play Official-Style Button */
+    .btn-google-play {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: #000000;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 12px 24px;
+      border-radius: 14px;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(139, 92, 246, 0.3);
+      cursor: pointer;
+    }
+
+    .btn-google-play:hover {
+      border-color: var(--purple-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(139, 92, 246, 0.35);
+      background: #0a0a14;
+    }
+
+    .play-icon-svg {
+      width: 32px;
+      height: 32px;
+      flex-shrink: 0;
+    }
+
+    .play-text-col {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .play-small {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      line-height: 1;
+      font-weight: 500;
+    }
+
+    .play-brand {
+      font-size: 18px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: #ffffff;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--purple-light);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Right - Interactive Showcase Frame */
+    .hero-visual-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(20, 27, 56, 0.8), rgba(13, 18, 36, 0.95));
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      border-radius: 28px;
+      padding: 20px;
+      box-shadow: var(--shadow-card), var(--shadow-glow);
+      overflow: hidden;
+    }
+
+    .hero-artwork-banner {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(245, 200, 105, 0.2);
+    }
+
+    .hero-artwork-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .hero-artwork-banner:hover img {
+      transform: scale(1.02);
+    }
+
+    /* Live Interactive Flashcard in Hero */
+    .hero-interactive-card {
+      margin-top: 18px;
+      background: rgba(13, 18, 36, 0.9);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 18px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .interactive-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #f97316;
+      font-weight: 700;
+      background: rgba(249, 115, 22, 0.12);
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    .hero-flashcard-body {
+      background: linear-gradient(135deg, rgba(30, 41, 82, 0.6), rgba(18, 25, 52, 0.9));
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+
+    .hero-flashcard-body:hover {
+      border-color: var(--gold-accent);
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+    }
+
+    .flashcard-word-bengali {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--gold-accent);
+    }
+
+    .flashcard-translit {
+      font-size: 14px;
+      color: var(--purple-light);
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    .flashcard-translation {
+      font-size: 17px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-top: 8px;
+    }
+
+    .card-flip-prompt {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    .hero-card-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-audio-speak {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(139, 92, 246, 0.2);
+      border: 1px solid rgba(139, 92, 246, 0.4);
+      color: #ffffff;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-audio-speak:hover {
+      background: var(--purple-primary);
+    }
+
+    .btn-card-next {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-card-next:hover {
+      background: rgba(255, 255, 255, 0.16);
+    }
+
+    /* Trust / Stats Strip */
+    .trust-strip {
+      padding: 30px 0 60px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .trust-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .trust-item {
+      background: rgba(18, 25, 52, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 18px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .trust-number {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .trust-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ==========================================================================
+       4. FEATURES SECTION
+       ========================================================================== */
+    .section-wrapper {
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 56px;
+    }
+
+    .section-tag {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--purple-light);
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--text-secondary);
+    }
+
+    /* 4 Feature Cards Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    @media (min-width: 768px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+    }
+
+    .feature-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-glow);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card), var(--shadow-glow);
+    }
+
+    .feature-icon-wrapper {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    .icon-vocab {
+      background: linear-gradient(135deg, #ec4899, #8b5cf6);
+      box-shadow: 0 4px 18px rgba(236, 72, 153, 0.35);
+    }
+
+    .icon-grammar {
+      background: linear-gradient(135deg, #3b82f6, #10b981);
+      box-shadow: 0 4px 18px rgba(59, 130, 246, 0.35);
+    }
+
+    .icon-pronounce {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      box-shadow: 0 4px 18px rgba(245, 158, 11, 0.35);
+    }
+
+    .icon-quiz {
+      background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+      box-shadow: 0 4px 18px rgba(139, 92, 246, 0.35);
+    }
+
+    .feature-content h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .feature-content p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .feature-list li svg {
+      color: var(--emerald-accent);
+      flex-shrink: 0;
+    }
+
+    /* Embedded Mini Interactive Tools inside each Feature */
+    .mini-interactive-box {
+      margin-top: auto;
+      background: rgba(10, 14, 28, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    /* 1. Vocabulary Mini Tool */
+    .vocab-chips-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .chip-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition-smooth);
+    }
+
+    .chip-btn.active {
+      background: var(--purple-primary);
+      color: #ffffff;
+      border-color: var(--purple-light);
+    }
+
+    .vocab-display-card {
+      background: rgba(20, 27, 56, 0.9);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .vocab-main {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gold-accent);
+    }
+
+    .vocab-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* 2. Grammar Mini Tool */
+    .grammar-compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .grammar-pill-box {
+      background: rgba(20, 27, 56, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 10px;
+    }
+
+    .grammar-pill-box h4 {
+      font-size: 11px;
+      color: var(--purple-light);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .grammar-example {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .grammar-rule {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* 3. Pronunciation Wave Mini Tool */
+    .audio-wave-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .wave-bars {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 32px;
+      flex: 1;
+    }
+
+    .wave-bar {
+      width: 4px;
+      background: var(--purple-light);
+      border-radius: 2px;
+      height: 8px;
+      transition: height 0.15s ease;
+    }
+
+    .wave-bar.playing {
+      animation: wavePulse 0.6s infinite ease-in-out alternate;
+    }
+
+    @keyframes wavePulse {
+      0% { height: 6px; }
+      100% { height: 28px; }
+    }
+
+    /* 4. Interactive Quiz Playground Card */
+    .quiz-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-question-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .quiz-options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .quiz-opt-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-secondary);
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition-smooth);
+    }
+
+    .quiz-opt-btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--purple-light);
+    }
+
+    .quiz-opt-btn.correct {
+      background: rgba(16, 185, 129, 0.25) !important;
+      border-color: var(--emerald-accent) !important;
+      color: #ffffff !important;
+    }
+
+    .quiz-opt-btn.wrong {
+      background: rgba(244, 63, 94, 0.25) !important;
+      border-color: var(--rose-accent) !important;
+      color: #ffffff !important;
+    }
+
+    .quiz-status-feedback {
+      font-size: 12px;
+      font-weight: 600;
+      min-height: 18px;
+    }
+
+    /* ==========================================================================
+       5. SCREENSHOTS / APP SHOWCASE SECTION
+       ========================================================================== */
+    .screenshots-section {
+      padding: 90px 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(13, 18, 36, 0.6) 50%, transparent 100%);
+    }
+
+    .gallery-nav-pills {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .gallery-tab {
+      background: rgba(20, 27, 56, 0.8);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .gallery-tab.active {
+      background: linear-gradient(135deg, var(--indigo-vibrant), var(--purple-primary));
+      border-color: var(--purple-vibrant);
+      color: #ffffff;
+      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+    }
+
+    /* Device Mockup Stage */
+    .phone-mockup-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .phone-frame {
+      width: 100%;
+      max-width: 360px;
+      height: 680px;
+      background: #000000;
+      border: 10px solid #1e243d;
+      border-radius: 46px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 50px -10px rgba(139, 92, 246, 0.4);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Notch & Speaker */
+    .phone-notch {
+      width: 130px;
+      height: 24px;
+      background: #1e243d;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .notch-camera {
+      width: 8px;
+      height: 8px;
+      background: #0f172a;
+      border-radius: 50%;
+      border: 1px solid #334155;
+    }
+
+    .phone-screen {
+      flex: 1;
+      background: #0a0e1c;
+      overflow-y: auto;
+      padding: 36px 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Custom Screen Themes */
+    .screen-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    .app-screen-view {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .app-screen-view.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Screen 1: Learning Journey */
+    .journey-node {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(20, 27, 56, 0.85);
+      border: 1px solid rgba(139, 92, 246, 0.25);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .journey-node.completed {
+      border-color: var(--emerald-accent);
+    }
+
+    .journey-node-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    /* Screen 2: Flashcards */
+    .flashcard-mock-card {
+      background: linear-gradient(135deg, #1e1b4b, #2e1065);
+      border: 1px solid rgba(245, 200, 105, 0.4);
+      border-radius: 18px;
+      padding: 24px 16px;
+      text-align: center;
+    }
+
+    /* Screen 3: Pronunciation */
+    .pronounce-meter {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .accuracy-score {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--emerald-accent);
+    }
+
+    /* Screen 4: Quiz */
+    .quiz-mock-progress {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .quiz-progress-fill {
+      width: 75%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--emerald-accent), var(--blue-accent));
+    }
+
+    /* ==========================================================================
+       6. GOOGLE PLAY STORE CTA SECTION
+       ========================================================================== */
+    .cta-banner-section {
+      padding: 80px 0;
+    }
+
+    .cta-banner-card {
+      background: linear-gradient(135deg, rgba(20, 27, 56, 0.95), rgba(46, 16, 101, 0.85));
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      border-radius: 32px;
+      padding: 48px 32px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+      align-items: center;
+      box-shadow: var(--shadow-card), var(--shadow-glow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    @media (min-width: 900px) {
+      .cta-banner-card {
+        grid-template-columns: 1.3fr 0.7fr;
+        padding: 56px 48px;
+      }
+    }
+
+    .cta-banner-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-content h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      margin-bottom: 16px;
+    }
+
+    .cta-content p {
+      font-size: 17px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      max-width: 560px;
+    }
+
+    .cta-action-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .qr-download-box {
+      background: rgba(10, 14, 28, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .qr-frame {
+      width: 140px;
+      height: 140px;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .qr-frame svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .qr-label {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       7. CONTACT & SUPPORT SECTION
+       ========================================================================== */
+    .contact-section {
+      padding: 80px 0;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (min-width: 900px) {
+      .contact-grid {
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 48px;
+      }
+    }
+
+    .contact-info-card {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .contact-info-card h3 {
+      font-size: 26px;
+    }
+
+    .contact-info-card p {
+      color: var(--text-secondary);
+      font-size: 16px;
+    }
+
+    .contact-channels {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .contact-channel-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: rgba(20, 27, 56, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .channel-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(139, 92, 246, 0.15);
+      color: var(--purple-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Contact Form (Notion Style Clean Inputs) */
+    .contact-form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      background: rgba(10, 14, 28, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 15px;
+      transition: var(--transition-smooth);
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--purple-primary);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.25);
+      background: rgba(10, 14, 28, 0.95);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .btn-submit-form {
+      width: 100%;
+      background: linear-gradient(135deg, var(--indigo-vibrant), var(--purple-primary));
+      border: none;
+      color: #ffffff;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.35);
+    }
+
+    .btn-submit-form:hover {
+      background: linear-gradient(135deg, var(--purple-primary), var(--purple-light));
+      transform: translateY(-2px);
+      box-shadow: 0 6px 22px rgba(139, 92, 246, 0.5);
+    }
+
+    .form-success-box {
+      display: none;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--emerald-accent);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      color: #ffffff;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* ==========================================================================
+       8. FOOTER
+       ========================================================================== */
+    .site-footer {
+      background: #04060c;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 70px 0 30px;
+      position: relative;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+
+    @media (max-width: 900px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-brand-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .footer-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    .footer-col h4 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #ffffff;
+      margin-bottom: 18px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: var(--transition-smooth);
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+      padding-left: 4px;
+    }
+
+    .footer-bottom-bar {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 24px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .lang-switcher-btn {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-secondary);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lang-switcher-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+    }
+
+    /* Modal for Download Action */
+    .download-modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .download-modal-backdrop.active {
+      display: flex;
+    }
+
+    .download-modal-card {
+      background: #0d1226;
+      border: 1px solid var(--border-glow);
+      border-radius: 24px;
+      padding: 32px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), var(--shadow-glow);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    /* Pulse Indicator */
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--emerald-accent);
+      border-radius: 50%;
+      display: inline-block;
+    }
+  </style>
 </head>
-
 <body>
 
-<section class="hero">
-<div class="container">
-<h1>Banglish</h1>
-<p>
-Learn English and Bengali the smart way.
-Improve vocabulary, grammar, pronunciation and communication skills through interactive lessons and quizzes.
-</
+  <!-- Ambient Light Orbs -->
+  <div class="ambient-glow ambient-1" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-2" aria-hidden="true"></div>
+  <div class="ambient-glow ambient-3" aria-hidden="true"></div>
+
+  <div class="content-wrapper">
+
+    <!-- ======================================================================
+         1. SITE HEADER
+         ====================================================================== -->
+    <header class="site-header">
+      <div class="container nav-container">
+        <!-- Brand Logo Zone -->
+        <a href="#" class="brand-link" aria-label="Banglish Home">
+          <div class="brand-emblem">
+            <!-- Custom Stylized B Ribbon Logo matching Brand Art -->
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M26 18C26 18 42 12 56 22C68 30 66 45 52 48C68 52 74 68 62 80C50 90 28 86 28 86L28 68C28 68 40 70 48 64C54 60 52 52 44 50C38 48 26 48 26 48V18Z" fill="url(#goldGradient)" />
+              <path d="M26 30C34 26 48 30 46 42C38 42 30 38 26 30Z" fill="url(#emeraldRibbon)" />
+              <path d="M26 58C36 56 50 62 46 74C38 74 30 68 26 58Z" fill="url(#emeraldRibbon)" />
+              <defs>
+                <linearGradient id="goldGradient" x1="20" y1="15" x2="75" y2="85" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#FFD782" />
+                  <stop offset="0.5" stop-color="#F5C869" />
+                  <stop offset="1" stop-color="#C58A2B" />
+                </linearGradient>
+                <linearGradient id="emeraldRibbon" x1="25" y1="25" x2="50" y2="75" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#10B981" />
+                  <stop offset="1" stop-color="#065F46" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-title">BANGLISH</span>
+            <span class="brand-tagline">LEARN • SPEAK • BELONG</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="desktop-nav" aria-label="Primary Navigation">
+          <a href="#features" class="nav-link">Features</a>
+          <a href="#screenshots" class="nav-link">Screenshots</a>
+          <a href="#curriculum" class="nav-link">Curriculum</a>
+          <a href="#reviews" class="nav-link">Community</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <button class="btn-play-header open-download-modal">
+            <svg class="play-icon-svg" style="width: 18px; height: 18px;" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M3.609 1.814L13.792 12 3.61 22.186c-.198-.124-.336-.341-.336-.615V2.429c0-.274.138-.491.336-.615zM15.207 13.414l2.122-2.121-12.72-7.344 10.598 9.465zm0-2.828L4.609 1.121l12.72 7.344-2.122 2.121zm1.414 1.414l4.243-2.45c.424-.245.736-.065.736.425v.023c0 .49-.312.67-.736.425l-4.243-2.423z" />
+            </svg>
+            <span>Google Play</span>
+          </button>
+
+          <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Toggle navigation menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div class="mobile-drawer" id="mobileDrawer">
+        <a href="#features" class="mobile-nav-item">Features</a>
+        <a href="#screenshots" class="mobile-nav-item">Screenshots</a>
+        <a href="#curriculum" class="mobile-nav-item">Curriculum</a>
+        <a href="#reviews" class="mobile-nav-item">Community</a>
+        <a href="#contact" class="mobile-nav-item">Contact</a>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         2. HERO SECTION
+         ====================================================================== -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <!-- Hero Left Column -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>Bilingual Language Learning · বাংলা ও ইংরেজি</span>
+          </div>
+
+          <h1 class="hero-title">
+            <span class="gradient-text">Learn English & Bengali</span> with Confidence
+            <span class="hero-bengali-kicker bengali-script">শেখার আনন্দ, শিকড়ের টান</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Banglish bridges native Bengali speakers and diaspora learners worldwide. Master natural conversations, everyday grammar, accent-free pronunciation, and cultural fluency through delightful daily bites.
+          </p>
+
+          <!-- 3 Brand Pillars (from uploaded brand image) -->
+          <div class="hero-pillars">
+            <div class="pillar-card">
+              <div class="pillar-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+              </div>
+              <div class="pillar-title">LEARN</div>
+              <div class="pillar-sub">Step by Step</div>
+            </div>
+
+            <div class="pillar-card">
+              <div class="pillar-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+              </div>
+              <div class="pillar-title">SPEAK</div>
+              <div class="pillar-sub">With Confidence</div>
+            </div>
+
+            <div class="pillar-card">
+              <div class="pillar-icon-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <div class="pillar-title">BELONG</div>
+              <div class="pillar-sub">To a Rich Culture</div>
+            </div>
+          </div>
+
+          <!-- CTAs -->
+          <div class="hero-cta-group">
+            <button class="btn-google-play open-download-modal" aria-label="Get it on Google Play">
+              <!-- Official Google Play Logo Icon -->
+              <svg class="play-icon-svg" viewBox="0 0 512 512" fill="none">
+                <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z" fill="#00E676" />
+                <path d="M47 38.6c-4.3 8.3-6.7 18.2-6.7 29.5v375.8c0 11.3 2.4 21.2 6.7 29.5l237.9-237.4L47 38.6z" fill="#00B0FF" />
+                <path d="M325.3 277.7l60.1 60.1L104.6 499l220.7-221.3z" fill="#FF3D00" />
+                <path d="M449.6 232.7l-64.2-37-60.1 60 60.1 60 64.2-37c18.5-10.7 18.5-28.3 0-39z" fill="#FFC107" />
+              </svg>
+              <div class="play-text-col">
+                <span class="play-small">GET IT ON</span>
+                <span class="play-brand">Google Play</span>
+              </div>
+            </button>
+
+            <a href="#features" class="btn-secondary">
+              <span>Explore Features</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Right Column - Image & Interactive Flashcard -->
+        <div class="hero-visual-card">
+          <!-- Official High-Resolution Brand Artwork Attachment -->
+          <div class="hero-artwork-banner">
+            <img 
+              src="/public/assets/aistudio/Designer__4__92e631fd.png" 
+              alt="Banglish App Preview - Learn Bangla, Connect to Your Roots" 
+              loading="eager"
+            />
+          </div>
+
+          <!-- Live Interactive Banglish Card -->
+          <div class="hero-interactive-card">
+            <div class="interactive-card-header">
+              <span>Interactive Daily Lesson</span>
+              <span class="streak-badge">🔥 14-Day Streak</span>
+            </div>
+
+            <div class="hero-flashcard-body" id="heroFlashcard" title="Click to flip translation">
+              <div class="flashcard-word-bengali bengali-script" id="heroBengaliText">শুভ সকাল!</div>
+              <div class="flashcard-translit" id="heroTranslitText">"Shubho Shokal!"</div>
+              <div class="flashcard-translation" id="heroEnglishText">Good morning! Have a wonderful day.</div>
+              <div class="card-flip-prompt">Tap card to toggle English / বাংলা ⇄</div>
+            </div>
+
+            <div class="hero-card-controls">
+              <button class="btn-audio-speak" id="heroSpeakBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+                <span>Listen Audio</span>
+              </button>
+              <button class="btn-card-next" id="heroNextCardBtn">Next Phrase ➔</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trust Numbers Strip -->
+    <div class="trust-strip">
+      <div class="container">
+        <div class="trust-grid">
+          <div class="trust-item">
+            <div class="trust-number">250K+</div>
+            <div class="trust-label">Active Learners</div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-number">4.9 ★</div>
+            <div class="trust-label">Google Play Rating</div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-number">5,000+</div>
+            <div class="trust-label">Audio Phrases</div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-number">98%</div>
+            <div class="trust-label">Fluency Boost in 30 Days</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================================
+         3. FEATURES SECTION (4 REQUIRED CORE CARDS)
+         ====================================================================== -->
+    <section class="section-wrapper" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Powerful Learning Architecture</span>
+          <h2 class="section-title">Everything You Need for <span class="gradient-text">Complete Fluency</span></h2>
+          <p class="section-desc">Designed with Duolingo's playful micro-learning pace and Notion's structured clarity. Four foundational pillars that build genuine bilingual mastery.</p>
+        </div>
+
+        <div class="features-grid">
+          <!-- CARD 1: Vocabulary Builder -->
+          <div class="feature-card">
+            <div class="feature-icon-wrapper icon-vocab">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </div>
+
+            <div class="feature-content">
+              <h3>Vocabulary Builder</h3>
+              <p>Expand your active vocabulary with 5,000+ categorized words. Uses intelligent Spaced Repetition (SRS) algorithms so words transfer permanently into your long-term memory.</p>
+              
+              <ul class="feature-list">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Contextual examples in everyday English & Bangla</span>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Bengali script (লিপি) + phonetic Banglish transliteration</span>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Cultural idioms (বাগধারা) and proverbs with nuances</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Mini Interactive Flashcard Deck -->
+            <div class="mini-interactive-box">
+              <div class="vocab-chips-row">
+                <button class="chip-btn active" data-topic="greetings">Greetings</button>
+                <button class="chip-btn" data-topic="dining">Dining & Food</button>
+                <button class="chip-btn" data-topic="travel">Travel & Places</button>
+                <button class="chip-btn" data-topic="family">Family & Kinship</button>
+              </div>
+              <div class="vocab-display-card">
+                <div>
+                  <div class="vocab-main bengali-script" id="vocabDemoWord">ধন্যবাদ</div>
+                  <div class="vocab-sub" id="vocabDemoTrans">Dhonnobad · Thank you very much</div>
+                </div>
+                <button class="btn-audio-speak" style="padding: 6px 12px; font-size: 11px;" id="vocabSpeakBtn">🔊 Listen</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 2: Grammar Practice -->
+          <div class="feature-card">
+            <div class="feature-icon-wrapper icon-grammar">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+            </div>
+
+            <div class="feature-content">
+              <h3>Grammar Practice</h3>
+              <p>Demystify sentence structures without tedious rote memorization. Side-by-side comparative breakdowns show how English SVO maps to Bengali SOV intuitively.</p>
+              
+              <ul class="feature-list">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Verb conjugations across past, present, and future tenses</span>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Polite vs casual pronoun registers (আপনি / তুমি / তুই)</span>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Interactive sentence tile reordering exercises</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Mini Grammar Comparator -->
+            <div class="mini-interactive-box">
+              <div class="grammar-compare-grid">
+                <div class="grammar-pill-box">
+                  <h4>English Syntax (S-V-O)</h4>
+                  <div class="grammar-example">"I eat rice"</div>
+                  <div class="grammar-rule">Subject + Verb + Object</div>
+                </div>
+                <div class="grammar-pill-box" style="border-color: rgba(245, 200, 105, 0.3);">
+                  <h4 style="color: var(--gold-accent);">Bangla Syntax (S-O-V)</h4>
+                  <div class="grammar-example bengali-script">"আমি ভাত খাই"</div>
+                  <div class="grammar-rule">Subject + Object + Verb</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 3: Pronunciation Training -->
+          <div class="feature-card">
+            <div class="feature-icon-wrapper icon-pronounce">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                <line x1="12" y1="19" x2="12" y2="23"></line>
+                <line x1="8" y1="23" x2="16" y2="23"></line>
+              </svg>
+            </div>
+
+            <div class="feature-content">
+              <h3>Pronunciation Training</h3>
+              <p>Conquer tricky phonetic challenges with real-time feedback. Master unique Bengali retroflex letters (ট, ঠ, ড) and English diphthongs with audio speed control.</p>
+              
+              <ul class="feature-list">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Syllable-by-syllable breakdowns & native voice recordings</span>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Aspirated vs non-aspirated consonant discrimination</span>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>0.75x slow-playback mode for pitch & stress mastery</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Mini Audio Simulator -->
+            <div class="mini-interactive-box">
+              <div class="audio-wave-container">
+                <button class="btn-audio-speak" id="pronouncePlayBtn" style="padding: 8px 16px;">
+                  <span>▶ Test Audio</span>
+                </button>
+                <div class="wave-bars" id="audioWaveBars">
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                  <div class="wave-bar"></div>
+                </div>
+                <span style="font-size: 12px; color: var(--gold-accent); font-weight: 600;" id="pronounceWordLabel">Kemon achen?</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD 4: Interactive Quizzes -->
+          <div class="feature-card">
+            <div class="feature-icon-wrapper icon-quiz">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+
+            <div class="feature-content">
+              <h3>Interactive Quizzes</h3>
+              <p>Test your skills with gamified challenges that never feel like homework. Earn gems, maintain daily streaks, and compete on global Bengali-English leaderboards.</p>
+              
+              <ul class="feature-list">
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Rapid-fire word matching and multiple-choice drills</span>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Listening comprehension quizzes with native speakers</span>
+                </li>
+                <li>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                  <span>Weekend challenge cups with community certificates</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Mini Playable Quiz Widget -->
+            <div class="mini-interactive-box quiz-box">
+              <div class="quiz-question-text" id="quizQuestion">How do you say "Welcome" in Bengali?</div>
+              <div class="quiz-options-grid" id="quizOptions">
+                <button class="quiz-opt-btn" onclick="checkQuizAnswer(this, false)">ধন্যবাদ (Thank you)</button>
+                <button class="quiz-opt-btn" onclick="checkQuizAnswer(this, true)">স্বাগতম (Welcome)</button>
+                <button class="quiz-opt-btn" onclick="checkQuizAnswer(this, false)">বিদায় (Goodbye)</button>
+                <button class="quiz-opt-btn" onclick="checkQuizAnswer(this, false)">নমস্কার (Hello)</button>
+              </div>
+              <div class="quiz-status-feedback" id="quizFeedback">Tap an option to test your knowledge!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. SCREENSHOTS & APP EXPERIENCE SECTION
+         ====================================================================== -->
+    <section class="screenshots-section" id="screenshots">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Interactive Preview</span>
+          <h2 class="section-title">Designed for <span class="gradient-text">Delightful Daily Habits</span></h2>
+          <p class="section-desc">Experience an interface that combines the joyful gamification of Duolingo with the aesthetic calm of Notion.</p>
+        </div>
+
+        <!-- Gallery Tabs -->
+        <div class="gallery-nav-pills">
+          <button class="gallery-tab active" data-screen="screen-journey">🗺️ Learning Journey</button>
+          <button class="gallery-tab" data-screen="screen-vocab">📚 Vocabulary Deck</button>
+          <button class="gallery-tab" data-screen="screen-pronounce">🎙️ Pronunciation Lab</button>
+          <button class="gallery-tab" data-screen="screen-quiz">🏆 Smart Quiz</button>
+        </div>
+
+        <!-- Phone Mockup Stage -->
+        <div class="phone-mockup-stage">
+          <div class="phone-frame">
+            <!-- Notch -->
+            <div class="phone-notch">
+              <div class="notch-camera"></div>
+            </div>
+
+            <!-- Screen 1: Journey Tree -->
+            <div class="phone-screen app-screen-view active" id="screen-journey">
+              <div class="screen-header-bar">
+                <span style="font-size: 13px; font-weight: 700; color: var(--gold-accent);">Unit 1 · Fundamentals</span>
+                <span class="streak-badge">⚡ 120 XP</span>
+              </div>
+
+              <div class="journey-node completed">
+                <div class="journey-node-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald-accent);">✓</div>
+                <div>
+                  <div style="font-size: 14px; font-weight: 700; color: #fff;">Basics & Greetings</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Bengali letters & pronunciation</div>
+                </div>
+              </div>
+
+              <div class="journey-node completed">
+                <div class="journey-node-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--emerald-accent);">✓</div>
+                <div>
+                  <div style="font-size: 14px; font-weight: 700; color: #fff;">Family & Relationships</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Honorifics & titles</div>
+                </div>
+              </div>
+
+              <div class="journey-node" style="border-color: var(--purple-light); background: rgba(30, 41, 82, 0.9);">
+                <div class="journey-node-icon" style="background: var(--purple-primary); color: #fff;">▶</div>
+                <div>
+                  <div style="font-size: 14px; font-weight: 700; color: #fff;">Daily Food & Ordering</div>
+                  <div style="font-size: 11px; color: var(--gold-accent);">Current Active Lesson</div>
+                </div>
+              </div>
+
+              <div class="journey-node" style="opacity: 0.6;">
+                <div class="journey-node-icon" style="background: rgba(255, 255, 255, 0.1); color: var(--text-muted);">🔒</div>
+                <div>
+                  <div style="font-size: 14px; font-weight: 700; color: var(--text-muted);">Marketplace & Bargaining</div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Unlock at level 4</div>
+                </div>
+              </div>
+
+              <div style="margin-top: auto; padding: 12px; background: rgba(245, 200, 105, 0.1); border: 1px dashed rgba(245, 200, 105, 0.3); border-radius: 12px; text-align: center;">
+                <span style="font-size: 12px; color: var(--gold-accent); font-weight: 600;">Daily Goal: 15 / 20 Mins Completed</span>
+              </div>
+            </div>
+
+            <!-- Screen 2: Vocabulary Deck -->
+            <div class="phone-screen app-screen-view" id="screen-vocab">
+              <div class="screen-header-bar">
+                <span style="font-size: 13px; font-weight: 700; color: #fff;">Flashcard SRS</span>
+                <span style="font-size: 11px; color: var(--text-muted);">Card 14 of 40</span>
+              </div>
+
+              <div class="flashcard-mock-card">
+                <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--purple-light);">Essential Verb</span>
+                <div style="font-size: 32px; font-weight: 800; color: var(--gold-accent); margin: 12px 0;" class="bengali-script">ভালোবাসা</div>
+                <div style="font-size: 15px; color: #fff; font-weight: 600;">Bhalobasha · Love</div>
+                <div style="font-size: 12px; color: var(--text-muted); margin-top: 10px;">"Ami tomake bhalobashi" (I love you)</div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;">
+                <button style="background: rgba(244, 63, 94, 0.15); border: 1px solid var(--rose-accent); color: #fff; padding: 12px; border-radius: 10px; font-size: 12px; font-weight: 600;">Repeat Soon</button>
+                <button style="background: rgba(16, 185, 129, 0.15); border: 1px solid var(--emerald-accent); color: #fff; padding: 12px; border-radius: 10px; font-size: 12px; font-weight: 600;">Got It! (+10 XP)</button>
+              </div>
+            </div>
+
+            <!-- Screen 3: Pronunciation Lab -->
+            <div class="phone-screen app-screen-view" id="screen-pronounce">
+              <div class="screen-header-bar">
+                <span style="font-size: 13px; font-weight: 700; color: #fff;">Pronunciation Lab</span>
+                <span style="font-size: 11px; color: var(--emerald-accent);">Mic Ready</span>
+              </div>
+
+              <div class="pronounce-meter">
+                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Accuracy Match</div>
+                <div class="accuracy-score">96%</div>
+                <div style="font-size: 12px; color: #fff; font-weight: 600; margin-top: 4px;">Native-level articulation!</div>
+              </div>
+
+              <div style="background: rgba(20, 27, 56, 0.7); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 16px;">
+                <div style="font-size: 11px; color: var(--purple-light); text-transform: uppercase;">Phonetic Target</div>
+                <div style="font-size: 20px; font-weight: 700; color: var(--gold-accent); margin: 6px 0;" class="bengali-script">কেমন আছেন?</div>
+                <div style="font-size: 13px; color: var(--text-secondary);">IPA: [ke.mɔn a.t͡ʃʰen]</div>
+              </div>
+
+              <button style="margin-top: auto; background: var(--purple-primary); border: none; color: #fff; padding: 14px; border-radius: 12px; font-size: 13px; font-weight: 700; cursor: pointer;">
+                🎙️ Tap to Speak
+              </button>
+            </div>
+
+            <!-- Screen 4: Quiz -->
+            <div class="phone-screen app-screen-view" id="screen-quiz">
+              <div class="screen-header-bar">
+                <span style="font-size: 13px; font-weight: 700; color: #fff;">Speed Round</span>
+                <span style="font-size: 12px; color: #f59e0b; font-weight: 700;">❤️ 5 Lives</span>
+              </div>
+
+              <div class="quiz-mock-progress">
+                <div class="quiz-progress-fill"></div>
+              </div>
+
+              <div style="background: rgba(20, 27, 56, 0.9); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 14px; padding: 16px; text-align: center;">
+                <div style="font-size: 11px; color: var(--purple-light);">Translate to English</div>
+                <div style="font-size: 22px; font-weight: 700; color: #fff; margin-top: 6px;" class="bengali-script">আমি বাংলা শিখছি</div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 12px; border-radius: 10px; font-size: 12px; text-align: left;">I speak English</button>
+                <button style="background: rgba(16, 185, 129, 0.25); border: 1px solid var(--emerald-accent); color: #fff; padding: 12px; border-radius: 10px; font-size: 12px; text-align: left; font-weight: 600;">✓ I am learning Bangla</button>
+                <button style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; padding: 12px; border-radius: 10px; font-size: 12px; text-align: left;">I love Bangladesh</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. REVIEWS & TESTIMONIALS
+         ====================================================================== -->
+    <section class="section-wrapper" id="reviews">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Loved Worldwide</span>
+          <h2 class="section-title">Stories From <span class="gradient-text">Bilingual Learners</span></h2>
+          <p class="section-desc">From second-generation diaspora youth connecting to their heritage to expats and professionals mastering business Bengali.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+          <div class="feature-card" style="padding: 26px;">
+            <div style="display: flex; gap: 4px; color: var(--gold-accent); margin-bottom: 12px;">★★★★★</div>
+            <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; font-style: italic;">
+              "Growing up in London, my Bengali was limited to broken phrases. Banglish's pronunciation training and script lessons helped me speak confidently with my grandparents back home."
+            </p>
+            <div style="margin-top: 18px; display: flex; align-items: center; gap: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #f5c869); display: flex; align-items: center; justify-content: center; font-weight: 700;">RC</div>
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: #fff;">Rahat Chowdhury</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Software Engineer · London, UK</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-card" style="padding: 26px;">
+            <div style="display: flex; gap: 4px; color: var(--gold-accent); margin-bottom: 12px;">★★★★★</div>
+            <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; font-style: italic;">
+              "The side-by-side grammar comparison between English SVO and Bangla SOV made syntax click immediately. Clean Notion-like layouts with no childish clutter."
+            </p>
+            <div style="margin-top: 18px; display: flex; align-items: center; gap: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #3b82f6, #10b981); display: flex; align-items: center; justify-content: center; font-weight: 700;">SJ</div>
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: #fff;">Sarah Jenkins</div>
+                <div style="font-size: 12px; color: var(--text-muted);">NGO Project Director · Dhaka</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-card" style="padding: 26px;">
+            <div style="display: flex; gap: 4px; color: var(--gold-accent); margin-bottom: 12px;">★★★★★</div>
+            <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; font-style: italic;">
+              "I wanted my high schoolers to learn formal Bengali grammar while preparing for English standardized exams. Banglish serves both audiences brilliantly."
+            </p>
+            <div style="margin-top: 18px; display: flex; align-items: center; gap: 12px;">
+              <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #ec4899, #8b5cf6); display: flex; align-items: center; justify-content: center; font-weight: 700;">TA</div>
+              <div>
+                <div style="font-size: 14px; font-weight: 700; color: #fff;">Tanvir Ahmed</div>
+                <div style="font-size: 12px; color: var(--text-muted);">Educator · Toronto, Canada</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         6. GOOGLE PLAY DOWNLOAD CALL-TO-ACTION
+         ====================================================================== -->
+    <section class="cta-banner-section" id="curriculum">
+      <div class="container">
+        <div class="cta-banner-card">
+          <div class="cta-content">
+            <span class="hero-badge" style="margin-bottom: 16px;">
+              <span>Available for Android & Tablets</span>
+            </span>
+            <h2>Start Your Bilingual Journey <span class="gold-gradient-text">Today</span></h2>
+            <p>
+              Join over 250,000 learners mastering English and Bengali. Free download includes all beginner levels, foundational flashcards, and daily pronunciation drills.
+            </p>
+
+            <div class="cta-action-row">
+              <button class="btn-google-play open-download-modal">
+                <svg class="play-icon-svg" viewBox="0 0 512 512" fill="none">
+                  <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z" fill="#00E676" />
+                  <path d="M47 38.6c-4.3 8.3-6.7 18.2-6.7 29.5v375.8c0 11.3 2.4 21.2 6.7 29.5l237.9-237.4L47 38.6z" fill="#00B0FF" />
+                  <path d="M325.3 277.7l60.1 60.1L104.6 499l220.7-221.3z" fill="#FF3D00" />
+                  <path d="M449.6 232.7l-64.2-37-60.1 60 60.1 60 64.2-37c18.5-10.7 18.5-28.3 0-39z" fill="#FFC107" />
+                </svg>
+                <div class="play-text-col">
+                  <span class="play-small">DOWNLOAD ON</span>
+                  <span class="play-brand">Google Play</span>
+                </div>
+              </button>
+
+              <div style="display: flex; flex-direction: column;">
+                <span style="font-size: 14px; font-weight: 700; color: #fff;">4.9 / 5.0 Rating</span>
+                <span style="font-size: 12px; color: var(--text-muted);">Android 8.0+ · Free with offline mode</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- QR Code Frame for Mobile Scan -->
+          <div class="qr-download-box">
+            <div class="qr-frame">
+              <!-- Geometric SVG QR Representation -->
+              <svg viewBox="0 0 100 100" fill="#000000">
+                <rect x="10" y="10" width="25" height="25" fill="#000"/>
+                <rect x="15" y="15" width="15" height="15" fill="#fff"/>
+                <rect x="18" y="18" width="9" height="9" fill="#000"/>
+                
+                <rect x="65" y="10" width="25" height="25" fill="#000"/>
+                <rect x="70" y="15" width="15" height="15" fill="#fff"/>
+                <rect x="73" y="18" width="9" height="9" fill="#000"/>
+
+                <rect x="10" y="65" width="25" height="25" fill="#000"/>
+                <rect x="15" y="70" width="15" height="15" fill="#fff"/>
+                <rect x="18" y="73" width="9" height="9" fill="#000"/>
+
+                <rect x="42" y="12" width="6" height="6" fill="#000"/>
+                <rect x="52" y="18" width="6" height="6" fill="#000"/>
+                <rect x="42" y="28" width="6" height="6" fill="#000"/>
+                <rect x="42" y="42" width="16" height="16" fill="#000"/>
+                <rect x="65" y="48" width="10" height="6" fill="#000"/>
+                <rect x="80" y="48" width="8" height="8" fill="#000"/>
+                <rect x="65" y="65" width="8" height="12" fill="#000"/>
+                <rect x="78" y="70" width="12" height="6" fill="#000"/>
+                <rect x="42" y="68" width="6" height="16" fill="#000"/>
+                <rect x="54" y="80" width="16" height="6" fill="#000"/>
+              </svg>
+            </div>
+            <span class="qr-label">Scan with phone camera to download directly</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         7. CONTACT & SUPPORT SECTION
+         ====================================================================== -->
+    <section class="contact-section" id="contact">
+      <div class="container contact-grid">
+        <!-- Contact Info -->
+        <div class="contact-info-card">
+          <span class="section-tag">Get in Touch</span>
+          <h3>We're Here to Support Your <span class="gradient-text">Learning Path</span></h3>
+          <p>
+            Have questions about our Bengali-English curriculum, school licenses, or feature suggestions? Our bilingual team typically responds within 12 hours.
+          </p>
+
+          <div class="contact-channels">
+            <div class="contact-channel-item">
+              <div class="channel-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </div>
+              <div>
+                <div style="font-size: 12px; color: var(--text-muted);">Direct Support Email</div>
+                <div style="font-size: 15px; font-weight: 600; color: #fff;">support@banglishapp.com</div>
+              </div>
+            </div>
+
+            <div class="contact-channel-item">
+              <div class="channel-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              </div>
+              <div>
+                <div style="font-size: 12px; color: var(--text-muted);">Discord & Community</div>
+                <div style="font-size: 15px; font-weight: 600; color: #fff;">discord.gg/banglish-learners</div>
+              </div>
+            </div>
+
+            <div class="contact-channel-item">
+              <div class="channel-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="2" y1="12" x2="22" y2="12"></line>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              </div>
+              <div>
+                <div style="font-size: 12px; color: var(--text-muted);">Headquarters</div>
+                <div style="font-size: 15px; font-weight: 600; color: #fff;">Dhaka · London · San Francisco</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="contact-form-card">
+          <form id="contactForm">
+            <div class="form-group">
+              <label class="form-label" for="userName">Full Name</label>
+              <input type="text" id="userName" class="form-input" placeholder="e.g. Anika Rahman" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="userEmail">Email Address</label>
+              <input type="email" id="userEmail" class="form-input" placeholder="anika@example.com" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="userSubject">Inquiry Topic</label>
+              <select id="userSubject" class="form-select">
+                <option value="support">General Learner Support</option>
+                <option value="curriculum">Curriculum & Content Feedback</option>
+                <option value="schools">School / Institutional License</option>
+                <option value="bug">Report a Bug / Translation Correction</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="userMessage">Your Message</label>
+              <textarea id="userMessage" class="form-textarea" placeholder="How can our language team help you?" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit-form" id="submitFormBtn">Send Message</button>
+          </form>
+
+          <div class="form-success-box" id="formSuccessMessage">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--emerald-accent); margin: 0 auto 10px;">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 6px;">Thank You! Dhonnobad!</h4>
+            <p style="font-size: 14px; color: var(--text-secondary);">Your message has been received. Ticket ID: #BG-8492. Our team will get back to you shortly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         8. FOOTER
+         ====================================================================== -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <!-- Col 1: Brand Info -->
+          <div class="footer-brand-col">
+            <a href="#" class="brand-link">
+              <div class="brand-emblem">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M26 18C26 18 42 12 56 22C68 30 66 45 52 48C68 52 74 68 62 80C50 90 28 86 28 86L28 68C28 68 40 70 48 64C54 60 52 52 44 50C38 48 26 48 26 48V18Z" fill="url(#goldGradientF)" />
+                  <path d="M26 30C34 26 48 30 46 42C38 42 30 38 26 30Z" fill="url(#emeraldRibbonF)" />
+                  <path d="M26 58C36 56 50 62 46 74C38 74 30 68 26 58Z" fill="url(#emeraldRibbonF)" />
+                  <defs>
+                    <linearGradient id="goldGradientF" x1="20" y1="15" x2="75" y2="85" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#FFD782" />
+                      <stop offset="0.5" stop-color="#F5C869" />
+                      <stop offset="1" stop-color="#C58A2B" />
+                    </linearGradient>
+                    <linearGradient id="emeraldRibbonF" x1="25" y1="25" x2="50" y2="75" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#10B981" />
+                      <stop offset="1" stop-color="#065F46" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+              <div class="brand-text">
+                <span class="brand-title">BANGLISH</span>
+                <span class="brand-tagline">LEARN • SPEAK • BELONG</span>
+              </div>
+            </a>
+            <p class="footer-desc">
+              The premium bilingual language learning application bridging Bengali (বাংলা) and English with confidence, cultural pride, and communicative joy.
+            </p>
+          </div>
+
+          <!-- Col 2: Learning Modules -->
+          <div class="footer-col">
+            <h4>Curriculum</h4>
+            <ul class="footer-links">
+              <li><a href="#features">Vocabulary Builder</a></li>
+              <li><a href="#features">Comparative Grammar</a></li>
+              <li><a href="#features">Pronunciation Lab</a></li>
+              <li><a href="#features">Interactive Quizzes</a></li>
+              <li><a href="#features">Bengali Script Basics (বর্ণমালা)</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Community & Resources -->
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul class="footer-links">
+              <li><a href="#screenshots">App Screenshots</a></li>
+              <li><a href="#reviews">Learner Testimonials</a></li>
+              <li><a href="#curriculum">Google Play Store</a></li>
+              <li><a href="#contact">Language FAQ</a></li>
+              <li><a href="#contact">Educator Guide</a></li>
+            </ul>
+          </div>
+
+          <!-- Col 4: Legal & Trust -->
+          <div class="footer-col">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#">Child Online Safety</a></li>
+              <li><a href="#">Cookie Preferences</a></li>
+              <li><a href="#">Open Source Licenses</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom-bar">
+          <div>
+            © 2026 Banglish Language Learning Inc. All rights reserved.
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <button class="lang-switcher-btn" id="langSwitchBtn">
+              <span>🌐</span>
+              <span id="langSwitchLabel">English / বাংলা</span>
+            </button>
+            <span style="font-size: 12px; color: var(--gold-accent);">Made with ❤️ for Bangladesh & the World</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Download Google Play Action Modal -->
+  <div class="download-modal-backdrop" id="downloadModal" role="dialog" aria-modal="true">
+    <div class="download-modal-card">
+      <button class="modal-close-btn" id="closeModalBtn" aria-label="Close modal">&times;</button>
+      
+      <div style="width: 56px; height: 56px; border-radius: 16px; background: rgba(139, 92, 246, 0.15); border: 1px solid var(--purple-light); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+        <svg class="play-icon-svg" style="width: 28px; height: 28px;" viewBox="0 0 512 512" fill="none">
+          <path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1z" fill="#00E676" />
+          <path d="M47 38.6c-4.3 8.3-6.7 18.2-6.7 29.5v375.8c0 11.3 2.4 21.2 6.7 29.5l237.9-237.4L47 38.6z" fill="#00B0FF" />
+          <path d="M325.3 277.7l60.1 60.1L104.6 499l220.7-221.3z" fill="#FF3D00" />
+          <path d="M449.6 232.7l-64.2-37-60.1 60 60.1 60 64.2-37c18.5-10.7 18.5-28.3 0-39z" fill="#FFC107" />
+        </svg>
+      </div>
+
+      <h3 style="font-size: 22px; font-weight: 800; margin-bottom: 8px;">Download Banglish</h3>
+      <p style="font-size: 14px; color: var(--text-secondary); margin-bottom: 20px;">
+        Direct link to official Google Play Store package <code style="color: var(--gold-accent);">com.banglish.learning</code> (v2.4.1).
+      </p>
+
+      <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 14px; text-align: left; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+          <span style="color: var(--text-muted);">Package Size:</span>
+          <span style="font-weight: 600; color: #fff;">28.4 MB</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+          <span style="color: var(--text-muted);">Compatibility:</span>
+          <span style="font-weight: 600; color: #fff;">Android 8.0 & Above</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px;">
+          <span style="color: var(--text-muted);">Status:</span>
+          <span style="font-weight: 600; color: var(--emerald-accent);">Verified by Play Protect</span>
+        </div>
+      </div>
+
+      <a href="https://play.google.com/store/apps" target="_blank" rel="noopener noreferrer" class="btn-submit-form" style="display: block; text-decoration: none;">
+        Open Google Play Store ➔
+      </a>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       9. EMBEDDED JAVASCRIPT (ZERO EXTERNAL LIBRARIES)
+       ====================================================================== -->
+  <script>
+    (function() {
+      // --- A. Mobile Navigation Drawer ---
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileDrawer = document.getElementById('mobileDrawer');
+      const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+
+      if (mobileMenuBtn && mobileDrawer) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileDrawer.classList.toggle('active');
+        });
+
+        mobileNavItems.forEach(item => {
+          item.addEventListener('click', () => {
+            mobileDrawer.classList.remove('active');
+          });
+        });
+      }
+
+      // --- B. Interactive Hero Flashcard System ---
+      const flashcardData = [
+        {
+          bengali: "শুভ সকাল!",
+          translit: '"Shubho Shokal!"',
+          english: "Good morning! Have a wonderful day."
+        },
+        {
+          bengali: "কেমন আছেন?",
+          translit: '"Kemon achen?"',
+          english: "How are you? (Polite / Formal form)"
+        },
+        {
+          bengali: "আমি ভালো আছি।",
+          translit: '"Ami bhalo achi."',
+          english: "I am doing well. Thank you!"
+        },
+        {
+          bengali: "আপনার সাথে পরিচিত হয়ে আনন্দিত হলাম।",
+          translit: '"Apnar shathe porichito hoye anondito holam."',
+          english: "Delighted to meet you!"
+        },
+        {
+          bengali: "আমি বাংলা এবং ইংরেজি শিখছি।",
+          translit: '"Ami Bangla ebong English shikhchi."',
+          english: "I am learning Bengali and English."
+        }
+      ];
+
+      let currentCardIndex = 0;
+      let isShowingBengali = true;
+
+      const heroFlashcard = document.getElementById('heroFlashcard');
+      const heroBengaliText = document.getElementById('heroBengaliText');
+      const heroTranslitText = document.getElementById('heroTranslitText');
+      const heroEnglishText = document.getElementById('heroEnglishText');
+      const heroSpeakBtn = document.getElementById('heroSpeakBtn');
+      const heroNextCardBtn = document.getElementById('heroNextCardBtn');
+
+      function updateCardView() {
+        const item = flashcardData[currentCardIndex];
+        if (heroBengaliText && heroTranslitText && heroEnglishText) {
+          heroBengaliText.textContent = item.bengali;
+          heroTranslitText.textContent = item.translit;
+          heroEnglishText.textContent = item.english;
+        }
+      }
+
+      if (heroFlashcard) {
+        heroFlashcard.addEventListener('click', () => {
+          isShowingBengali = !isShowingBengali;
+          if (isShowingBengali) {
+            heroBengaliText.style.display = 'block';
+            heroTranslitText.style.display = 'block';
+          } else {
+            heroBengaliText.style.display = 'none';
+            heroTranslitText.style.display = 'none';
+          }
+        });
+      }
+
+      if (heroNextCardBtn) {
+        heroNextCardBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentCardIndex = (currentCardIndex + 1) % flashcardData.length;
+          isShowingBengali = true;
+          if (heroBengaliText) heroBengaliText.style.display = 'block';
+          if (heroTranslitText) heroTranslitText.style.display = 'block';
+          updateCardView();
+        });
+      }
+
+      // --- C. Speech Synthesis Audio Generator ---
+      function speakPhrase(text, langCode = 'bn-BD') {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 0.9;
+          utterance.pitch = 1.0;
+          utterance.lang = langCode;
+
+          // Animate wave bars if available
+          const bars = document.querySelectorAll('.wave-bar');
+          bars.forEach(bar => bar.classList.add('playing'));
+
+          utterance.onend = () => {
+            bars.forEach(bar => bar.classList.remove('playing'));
+          };
+          utterance.onerror = () => {
+            bars.forEach(bar => bar.classList.remove('playing'));
+          };
+
+          window.speechSynthesis.speak(utterance);
+        } else {
+          alert('Speech synthesis is not supported on this browser.');
+        }
+      }
+
+      if (heroSpeakBtn) {
+        heroSpeakBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const text = flashcardData[currentCardIndex].bengali;
+          speakPhrase(text, 'bn-BD');
+        });
+      }
+
+      // --- D. Vocabulary Category Filter Chips ---
+      const vocabTopics = {
+        greetings: { word: "ধন্যবাদ", trans: "Dhonnobad · Thank you very much" },
+        dining: { word: "খাবার সুস্বাদু", trans: "Khabar shushwadu · The food is delicious" },
+        travel: { word: "আমি টিকিট চাই", trans: "Ami ticket chai · I would like a ticket" },
+        family: { word: "আমার পরিবার", trans: "Amar poribar · My beloved family" }
+      };
+
+      const chipButtons = document.querySelectorAll('.chip-btn');
+      const vocabDemoWord = document.getElementById('vocabDemoWord');
+      const vocabDemoTrans = document.getElementById('vocabDemoTrans');
+      const vocabSpeakBtn = document.getElementById('vocabSpeakBtn');
+
+      chipButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          chipButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const topic = btn.getAttribute('data-topic');
+          if (vocabTopics[topic] && vocabDemoWord && vocabDemoTrans) {
+            vocabDemoWord.textContent = vocabTopics[topic].word;
+            vocabDemoTrans.textContent = vocabTopics[topic].trans;
+          }
+        });
+      });
+
+      if (vocabSpeakBtn) {
+        vocabSpeakBtn.addEventListener('click', () => {
+          const currentWord = vocabDemoWord ? vocabDemoWord.textContent : "ধন্যবাদ";
+          speakPhrase(currentWord, 'bn-BD');
+        });
+      }
+
+      // --- E. Pronunciation Test Button ---
+      const pronouncePlayBtn = document.getElementById('pronouncePlayBtn');
+      if (pronouncePlayBtn) {
+        pronouncePlayBtn.addEventListener('click', () => {
+          speakPhrase("কেমন আছেন?", 'bn-BD');
+        });
+      }
+
+      // --- F. Interactive Mini Quiz Evaluation ---
+      window.checkQuizAnswer = function(buttonElement, isCorrect) {
+        const parent = buttonElement.parentElement;
+        const allButtons = parent.querySelectorAll('.quiz-opt-btn');
+        const feedback = document.getElementById('quizFeedback');
+
+        allButtons.forEach(btn => {
+          btn.disabled = true;
+        });
+
+        if (isCorrect) {
+          buttonElement.classList.add('correct');
+          if (feedback) {
+            feedback.style.color = '#10B981';
+            feedback.textContent = '🎉 Shundor! Correct! "স্বাগতম" means Welcome.';
+          }
+        } else {
+          buttonElement.classList.add('wrong');
+          if (feedback) {
+            feedback.style.color = '#F43F5E';
+            feedback.textContent = 'Not quite! The correct answer is "স্বাগতম" (Welcome).';
+          }
+        }
+
+        // Allow retry after 3 seconds
+        setTimeout(() => {
+          allButtons.forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove('correct', 'wrong');
+          });
+          if (feedback) {
+            feedback.style.color = 'var(--text-muted)';
+            feedback.textContent = 'Tap an option to test your knowledge!';
+          }
+        }, 3500);
+      };
+
+      // --- G. Screenshot App Mockup Tab Switcher ---
+      const galleryTabs = document.querySelectorAll('.gallery-tab');
+      const appScreenViews = document.querySelectorAll('.app-screen-view');
+
+      galleryTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          galleryTabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+
+          const targetScreenId = tab.getAttribute('data-screen');
+          appScreenViews.forEach(view => {
+            if (view.id === targetScreenId) {
+              view.classList.add('active');
+            } else {
+              view.classList.remove('active');
+            }
+          });
+        });
+      });
+
+      // --- H. Download Google Play Modal ---
+      const modalBackdrop = document.getElementById('downloadModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const openModalButtons = document.querySelectorAll('.open-download-modal');
+
+      openModalButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (modalBackdrop) modalBackdrop.classList.add('active');
+        });
+      });
+
+      if (closeModalBtn && modalBackdrop) {
+        closeModalBtn.addEventListener('click', () => {
+          modalBackdrop.classList.remove('active');
+        });
+
+        modalBackdrop.addEventListener('click', (e) => {
+          if (e.target === modalBackdrop) {
+            modalBackdrop.classList.remove('active');
+          }
+        });
+      }
+
+      // --- I. Contact Form Submission Feedback ---
+      const contactForm = document.getElementById('contactForm');
+      const formSuccessMessage = document.getElementById('formSuccessMessage');
+
+      if (contactForm && formSuccessMessage) {
+        contactForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          contactForm.style.display = 'none';
+          formSuccessMessage.style.display = 'block';
+        });
+      }
+
+      // --- J. Language Switcher Toggle ---
+      const langSwitchBtn = document.getElementById('langSwitchBtn');
+      let isEnglish = true;
+      if (langSwitchBtn) {
+        langSwitchBtn.addEventListener('click', () => {
+          isEnglish = !isEnglish;
+          const label = document.getElementById('langSwitchLabel');
+          if (label) {
+            label.textContent = isEnglish ? 'English / বাংলা' : 'বাংলা / English';
+          }
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
